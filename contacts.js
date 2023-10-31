@@ -15,6 +15,12 @@ export async function listContacts() {
   }
 }
 
+export async function getContactById(contactId) {
+  const contacts = await listContacts();
+  const foundContact = contacts.find((contact) => contact.id === contactId);
+  return foundContact || null;
+}
+
 export async function removeContact(contactId) {
   const contacts = await listContacts();
   const index = contacts.findIndex(contact => contact.id === contactId);
