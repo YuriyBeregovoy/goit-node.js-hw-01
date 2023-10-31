@@ -4,12 +4,12 @@ import {
   addContact,
 } from "./contacts.js";
 
-const { Command } = require('commander');
+import { Command } from 'commander';
 
 async function main() {
   // Вивести список контактів
   const allContacts = await listContacts();
-  console.log('Усі контакти:', allContacts);
+  console.log('Контакти:', allContacts);
 
   // Додати новий контакт
   const newContact = await addContact('John Doe', 'johndoe@example.com', '123-456-7890');
