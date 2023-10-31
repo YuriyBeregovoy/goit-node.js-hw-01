@@ -1,4 +1,4 @@
-const contacts = require('./contacts');
+import contacts from './contacts';
 
 const newContact = contacts.addContact('John Doe', 'johndoe@example.com', '123-456-7890');
 console.log('Доданий контакт:', newContact);
