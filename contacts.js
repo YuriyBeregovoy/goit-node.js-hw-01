@@ -17,3 +17,5 @@ function getContactById(contactId) {
   const foundContact = contacts.find(contact => contact.id === contactId);
   return foundContact || null;
 }
+
+
