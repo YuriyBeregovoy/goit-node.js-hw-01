@@ -1,7 +1,11 @@
+const { v4: uuidv4 } = require('uuid');
+
+
+
 const fs = require('fs/promises');
 const path = require('path');
 
-const contactsPath = path.join(__dirname, 'contacts.json');
+const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 function listContacts() {
   try {
@@ -29,10 +33,16 @@ function removeContact(contactId) {
   return removedContact;
 }
 
-function addContact(name, email, phone) {
+async function addContact(name, email, phone) {
   const contacts = listContacts();
   const newContact = { id: uuidv4(), name, email, phone };
   contacts.push(newContact);
-  fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
-  return newContact;
+  try {
+    await fs.promises.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+    return newContact;
+  } catch (error) {
+    throw error;
+  }
 }
+
+module.exports = { listContacts, getContactById, removeContact, addContact };
