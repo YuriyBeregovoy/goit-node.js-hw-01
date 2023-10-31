@@ -18,4 +18,13 @@ function getContactById(contactId) {
   return foundContact || null;
 }
 
-
+function removeContact(contactId) {
+  const contacts = listContacts();
+  const index = contacts.findIndex(contact => contact.id === contactId);
+  if (index === -1) {
+    return null;
+  }
+  const removedContact = contacts.splice(index, 1)[0];
+  fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
+  return removedContact;
+}
