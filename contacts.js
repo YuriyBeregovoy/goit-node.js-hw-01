@@ -11,3 +11,9 @@ function listContacts() {
     return [];
   }
 }
+
+function getContactById(contactId) {
+  const contacts = listContacts();
+  const foundContact = contacts.find(contact => contact.id === contactId);
+  return foundContact || null;
+}
