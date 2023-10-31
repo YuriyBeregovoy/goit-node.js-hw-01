@@ -1,5 +1,3 @@
-
-
 import { promises  } from 'fs';
 import path from "path";
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +15,7 @@ export async function listContacts() {
   }
 }
 
-async function removeContact(contactId) {
+export async function removeContact(contactId) {
   const contacts = await listContacts();
   const index = contacts.findIndex(contact => contact.id === contactId);
   if (index === -1) {
