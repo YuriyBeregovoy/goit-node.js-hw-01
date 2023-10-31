@@ -28,3 +28,11 @@ function removeContact(contactId) {
   fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
   return removedContact;
 }
+
+function addContact(name, email, phone) {
+  const contacts = listContacts();
+  const newContact = { id: uuidv4(), name, email, phone };
+  contacts.push(newContact);
+  fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
+}
