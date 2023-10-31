@@ -1,15 +1,16 @@
-const { v4: uuidv4 } = require('uuid');
 
 
+import { readFileSync, writeFileSync } from 'fs/promises';
+import path from "path";
+import { v4 as uuidv4 } from 'uuid';
+const newId = uuidv4();
 
-const fs = require('fs/promises');
-const path = require('path');
 
-const contactsPath = path.join(__dirname, 'db', 'contacts.json');
+const contactsPath = path.resolve("./db/contacts.json");
 
 function listContacts() {
   try {
-    const data = fs.readFileSync(contactsPath, 'utf-8');
+    const data = readFileSync(contactsPath, 'utf-8');
     return JSON.parse(data);
   } catch (error) {
     return [];
@@ -29,20 +30,16 @@ function removeContact(contactId) {
     return null;
   }
   const removedContact = contacts.splice(index, 1)[0];
-  fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
+  writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
   return removedContact;
 }
 
-async function addContact(name, email, phone) {
+function addContact(name, email, phone) {
   const contacts = listContacts();
-  const newContact = { id: uuidv4(), name, email, phone };
+  const newContact = { id: newId, name, email, phone };
   contacts.push(newContact);
-  try {
-    await fs.promises.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-    return newContact;
-  } catch (error) {
-    throw error;
-  }
+  writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
 }
 
-module.exports = { listContacts, getContactById, removeContact, addContact };
+export default { listContacts, getContactById, removeContact, addContact };
