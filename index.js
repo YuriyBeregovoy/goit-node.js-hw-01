@@ -1,16 +1,25 @@
-import contacts from './contacts';
+import {
+  listContacts,
+  removeContact,
+  addContact,
+} from "./contacts.js";
 
-const newContact = contacts.addContact('John Doe', 'johndoe@example.com', '123-456-7890');
-console.log('Доданий контакт:', newContact);
+async function main() {
+  // Вивести список контактів
+  const allContacts = await listContacts();
+  console.log('Усі контакти:', allContacts);
 
-const allContacts = contacts.listContacts();
-console.log('Контакти:', allContacts);
+  // Додати новий контакт
+  const newContact = await addContact('John Doe', 'johndoe@example.com', '123-456-7890');
+  console.log('Доданий контакт:', newContact);
 
-const contactById = contacts.getContactById(newContact.id);
-console.log('Контакт за ID:', contactById);
+  // Видалити контакт за ID
+  const removedContact = await removeContact(newContact.id);
+  console.log('Видалений контакт:', removedContact);
+  
+  // Оновити список контактів
+  const updatedContacts = await listContacts();
+  console.log('Оновлений список контактів:', updatedContacts);
+}
 
-const removedContact = contacts.removeContact(newContact.id);
-console.log('Видалений контакт:', removedContact);
-
-const updatedContacts = contacts.listContacts();
-console.log('Оновлений список контактів:', updatedContacts);
+main();
