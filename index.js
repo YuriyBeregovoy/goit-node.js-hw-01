@@ -23,12 +23,12 @@ async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case 'list':
       const allContacts = await listContacts();
-      console.log('Усі контакти:', allContacts);
+      console.log('Контакти:', allContacts);
       break;
 
     case 'get':
       if (id) {
-        // Обробка дії "get" з id
+       
         const contactById = await getContactById(id);
         if (contactById) {
           console.log('Контакт за ID:', contactById);
